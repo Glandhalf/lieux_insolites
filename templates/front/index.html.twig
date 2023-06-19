@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page d'accueil{% endblock %}
+
+{% block body %}
+<h1>Des Lieux Insolites</h1>
+    {% if not is_granted('ROLE_USER') %}
+        {{ form_start(registrationForm) }}
+            {{ form_row(registrationForm.email) }}
+            {{ form_row(registrationForm.plainPassword, {
+                label: 'Password'
+            }) }}
+            {{ form_row(registrationForm.firstname) }}
+            {{ form_row(registrationForm.lastname) }}
+            {{ form_row(registrationForm.pseudo) }}
+            {{ form_row(registrationForm.avatarfile) }}
+            <button type="submit" class="btn">Register</button>
+        {{ form_end(registrationForm) }}
+    {% endif %}
+{% endblock %}
