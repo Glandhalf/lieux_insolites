@@ -16,7 +16,7 @@
         {% endblock %}
     </head>
     <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
         <div class="container-fluid">
           <a class="navbar-brand" href="{{path('app_front')}}">Accueil</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,6 +39,16 @@
                         <a class="nav-link {% if route_name == 'app_login' %}active{% endif %}" href="{{ path('app_login') }}">Login</a>
                     </li>
                 {% endif %}
+                {# <section data-controller="display">
+                    <button data-action="display#clickButton">clic la dessus</button>
+                    <p data-display-target="results">Ici ça change quand on click sur le bouton</p>
+                </section> #}
+                <li data-controller="search" class="nav-item">
+                  <label for="search_box">Recherche</label>
+                  <input type="text" name="search_box" data-action="input->search#searching keydown.enter->search#send_search">
+                  <ul data-search-target="search_results"> 
+                  </ul>
+                </li>
               {# <li class="nav-item">
                 <a class="nav-link" href="{{path('app_static_page',{page:'presentation'})}}">Présentation</a>
               </li>

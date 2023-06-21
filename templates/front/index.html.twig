@@ -3,6 +3,11 @@
 {% block title %}Page d'accueil{% endblock %}
 
 {% block body %}
+
+<section data-controller="display">
+    <button data-action="display#clickButton">clic la dessus</button>
+    <p data-display-target="results">Ici ça change quand on click sur le bouton</p>
+</section>
 <h1>Des Lieux Insolites</h1>
     {% if not is_granted('ROLE_USER') %}
         {{ form_start(registrationForm) }}

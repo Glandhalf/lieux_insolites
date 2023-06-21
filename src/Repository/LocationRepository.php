@@ -39,6 +39,21 @@ class LocationRepository extends ServiceEntityRepository
         }
     }
 
+    // public function searchByKeyValue(string $search = null): array
+    // {
+    //     $queryBuilder = $this->createQueryBuilder('answer')
+    //         ->addCriteria(self::createApprovedCriteria())
+    //         ->addSelect('question');
+    //     if ($search) {
+    //         $queryBuilder->andWhere('answer.content LIKE :searchTerm')
+    //             ->setParameter('searchTerm', '%'.$search.'%');
+    //     }
+    //     return $queryBuilder
+    //         ->setMaxResults(10)
+    //         ->getQuery()
+    //         ->getResult();
+    // }
+
 //    /**
 //     * @return Location[] Returns an array of Location objects
 //     */
@@ -63,4 +78,19 @@ class LocationRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+   /**
+    * @return Location[] Returns an array of Location objects
+    */
+    public function searchByKeyValue($value): array
+    {
+        return $this->createQueryBuilder('location')
+            ->leftJoin('location.pictures', 'picture')
+            ->where('location.name LIKE :value OR location.description LIKE :value OR picture.file LIKE :value')
+            ->setParameter('value', '%'.$value.'%')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+ 
 }

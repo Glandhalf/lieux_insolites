@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Service\FileUploader;
+use Doctrine\DBAL\Types\JsonType;
+use App\Repository\LocationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -52,5 +54,15 @@ class FrontController extends AbstractController
             'registrationForm' => $formRegister->createView(),
             'controller_name' => 'FrontController',
         ]);
+    }
+
+    #[Route('/search/{keyword}', name: 'search')]
+    public function search(LocationRepository $locationRepository, string $keyword)
+    {
+        $locations = $locationRepository->searchByKeyValue(
+            $keyword
+        );
+        
+        return $this->json($locations, 200, [], ['groups' => 'search']);
     }
 }

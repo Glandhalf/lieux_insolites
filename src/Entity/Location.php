@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\LocationRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\LocationRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: LocationRepository::class)]
 class Location
@@ -14,21 +15,27 @@ class Location
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['search'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['search'])]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups(['search'])]
     private ?string $description = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 11, scale: 8)]
+    #[Groups(['search'])]
     private ?string $lat = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 11, scale: 8)]
+    #[Groups(['search'])]
     private ?string $longitude = null;
 
     #[ORM\Column]
+    #[Groups(['search'])]
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column]
@@ -36,9 +43,11 @@ class Location
 
     #[ORM\ManyToOne(inversedBy: 'locations')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['search'])]
     private ?User $user = null;
 
     #[ORM\OneToMany(mappedBy: 'location', targetEntity: Picture::class)]
+    #[Groups(['search'])]
     private Collection $pictures;
 
     public function __construct()

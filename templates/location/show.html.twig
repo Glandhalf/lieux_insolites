@@ -16,6 +16,14 @@
                 <td>{{ location.name }}</td>
             </tr>
             <tr>
+                <th>Pictures</th>
+                <td>
+                    {% for picture in location.pictures %}
+                        <img src="../uploads/locations/{{picture.file}}" width="400" height="300"></img>
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
                 <th>Description</th>
                 <td>{{ location.description }}</td>
             </tr>
