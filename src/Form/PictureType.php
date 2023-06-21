@@ -18,7 +18,7 @@ class PictureType extends AbstractType
         $builder
             ->add('file', FileType::class, [
                 'label' => 'Image',
-                'mapped' => false,
+                // 'mapped' => false,
                 'required' => true,
                 'constraints' => [
                     new File([
@@ -32,11 +32,11 @@ class PictureType extends AbstractType
                     ])
                 ],
             ])
-            ->add('location', EntityType::class, [
-                'class' => Location::class,
-                'required' => true,
-                'choice_label' => 'name'
-            ])
+            // ->add('location', EntityType::class, [
+            //     'class' => Location::class,
+            //     'required' => true,
+            //     'choice_label' => 'name'
+            // ])
         ;
     }
 

@@ -46,7 +46,7 @@ class Location
     #[Groups(['search'])]
     private ?User $user = null;
 
-    #[ORM\OneToMany(mappedBy: 'location', targetEntity: Picture::class)]
+    #[ORM\OneToMany(mappedBy: 'location', targetEntity: Picture::class, orphanRemoval: true, cascade:["persist"])]
     #[Groups(['search'])]
     private Collection $pictures;
 

@@ -5,7 +5,18 @@
 {% block body %}
     <h1>Create new Location</h1>
 
-    {{ include('location/_form.html.twig') }}
+    {# {{ include('location/_form.html.twig') }} #}
+    {{ form_start(form) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.lat) }}
+        {{ form_row(form.longitude) }}
+        <div data-controller='formpic'>
+            <button data-action ='click->formpic#addPicForm' data-template='{{ form_widget(form.pictures.vars.prototype) }}' data-index='{{ form.pictures|length }}' type="button" id="">Ajouter une photo</button>
+            <div data-formpic-target="formspic"></div>
+        </div>
+        <button class="btn">{{ button_label|default('Save') }}</button>
+    {{ form_end(form) }}
 
     <a href="{{ path('app_location_index') }}">back to list</a>
 {% endblock %}

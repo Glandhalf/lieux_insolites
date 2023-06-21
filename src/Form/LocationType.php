@@ -6,6 +6,7 @@ use App\Entity\Location;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class LocationType extends AbstractType
 {
@@ -16,6 +17,12 @@ class LocationType extends AbstractType
             ->add('description')
             ->add('lat')
             ->add('longitude')
+            ->add('pictures', CollectionType::class, [
+                'entry_type' => PictureType::class,
+                'label' => false,
+                'allow_add' => true,
+                'by_reference' => false,
+            ]);
             // ->add('createdAt')
             // ->add('modifiedAt')
             // ->add('user')
