@@ -20,7 +20,9 @@
             {{ form_row(form.longitude, {'attr': {'class': 'form-control'}}) }}
         </div>
         {% for picture in location.pictures %}
-            <img src="../../uploads/locations/{{picture.file}}" width="100" height="100"></img>
+            <a href="{{ path('app_picture_show', {'id': picture.id}) }}">
+                <img src="../../uploads/locations/{{picture.file}}" width="100" height="100"></img>
+            </a>
         {% endfor %}
         <div class="form-group mt-3" data-controller='formpic'>
             <button class="btn btn-primary" data-action ='click->formpic#addPicForm' data-template='{{ form_widget(form.pictures.vars.prototype) }}' data-index='{{ form.pictures|length }}' type="button" id="">Ajouter une photo</button>

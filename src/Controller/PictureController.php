@@ -74,13 +74,13 @@ class PictureController extends AbstractController
         ]);
     }
 
-    // #[Route('/{id}', name: 'app_picture_delete', methods: ['POST'])]
-    // public function delete(Request $request, Picture $picture, PictureRepository $pictureRepository): Response
-    // {
-    //     if ($this->isCsrfTokenValid('delete'.$picture->getId(), $request->request->get('_token'))) {
-    //         $pictureRepository->remove($picture, true);
-    //     }
+    #[Route('/{id}', name: 'app_picture_delete', methods: ['POST'])]
+    public function delete(Request $request, Picture $picture, PictureRepository $pictureRepository): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$picture->getId(), $request->request->get('_token'))) {
+            $pictureRepository->remove($picture, true);
+        }
 
-    //     return $this->redirectToRoute('app_picture_index', [], Response::HTTP_SEE_OTHER);
-    // }
+        return $this->redirectToRoute('app_picture_index', [], Response::HTTP_SEE_OTHER);
+    }
 }
