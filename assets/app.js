@@ -13,3 +13,32 @@ import './bootstrap';
 
 // Chargement du Js de Bootstrap
 import 'bootstrap';
+
+const addPicFormDeleteLink = (item) => {
+    const removeFormButton = document.createElement('button');
+    removeFormButton.innerText = 'Supprimer cette image';
+    removeFormButton.classList.add("btn","btn-warning")
+    item.after(removeFormButton);
+    console.log(removeFormButton);
+    removeFormButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        item.remove();
+    });
+}
+
+document
+    .querySelectorAll('.picture')
+    .forEach((picInput) => {
+        addPicFormDeleteLink(picInput)
+        console.log(picInput)
+    })
+
+// ... the rest of the block from above
+
+const addFormToCollection = (e) => {
+    // ...
+
+    // add a delete link to the new form
+    addPicFormDeleteLink(item);
+    
+}

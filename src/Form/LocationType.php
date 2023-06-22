@@ -18,9 +18,11 @@ class LocationType extends AbstractType
             ->add('lat')
             ->add('longitude')
             ->add('pictures', CollectionType::class, [
+                'required' => false,
                 'entry_type' => PictureType::class,
                 'label' => false,
                 'allow_add' => true,
+                'allow_delete' => true,
                 'by_reference' => false,
             ]);
             // ->add('createdAt')

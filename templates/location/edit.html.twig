@@ -5,8 +5,31 @@
 {% block body %}
     <h1>Edit Location</h1>
 
-    {{ include('location/_form.html.twig', {'button_label': 'Update'}) }}
-
+    {# {{ include('location/_form.html.twig', {'button_label': 'Update'}) }} #}
+    {{ form_start(form) }}
+        <div class="form-group">
+            {{ form_row(form.name, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_row(form.description, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_row(form.lat, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_row(form.longitude, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        {% for picture in location.pictures %}
+            <img src="../../uploads/locations/{{picture.file}}" width="100" height="100"></img>
+        {% endfor %}
+        <div class="form-group mt-3" data-controller='formpic'>
+            <button class="btn btn-primary" data-action ='click->formpic#addPicForm' data-template='{{ form_widget(form.pictures.vars.prototype) }}' data-index='{{ form.pictures|length }}' type="button" id="">Ajouter une photo</button>
+            <div data-formpic-target="formspic">
+                {{ form_row(form.pictures, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <button class="btn btn-success mt-3">{{ button_label|default('Update le Lieu') }}</button>
+    {{ form_end(form) }}
     <a href="{{ path('app_location_index') }}">back to list</a>
 
     {{ include('location/_delete_form.html.twig') }}

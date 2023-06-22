@@ -7,15 +7,25 @@
 
     {# {{ include('location/_form.html.twig') }} #}
     {{ form_start(form) }}
-        {{ form_row(form.name) }}
-        {{ form_row(form.description) }}
-        {{ form_row(form.lat) }}
-        {{ form_row(form.longitude) }}
-        <div data-controller='formpic'>
-            <button data-action ='click->formpic#addPicForm' data-template='{{ form_widget(form.pictures.vars.prototype) }}' data-index='{{ form.pictures|length }}' type="button" id="">Ajouter une photo</button>
-            <div data-formpic-target="formspic"></div>
+        <div class="form-group">
+            {{ form_row(form.name, {'attr': {'class': 'form-control'}}) }}
         </div>
-        <button class="btn">{{ button_label|default('Save') }}</button>
+        <div class="form-group">
+            {{ form_row(form.description, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_row(form.lat, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_row(form.longitude, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group mt-3" data-controller='formpic'>
+            <button class="btn btn-primary" data-action ='click->formpic#addPicForm' data-template='{{ form_widget(form.pictures.vars.prototype) }}' data-index='{{ form.pictures|length }}' type="button" id="">Ajouter une photo</button>
+            <div data-formpic-target="formspic">
+                {{ form_row(form.pictures, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <button class="btn btn-success mt-3">{{ button_label|default('Enregistrer le Lieu') }}</button>
     {{ form_end(form) }}
 
     <a href="{{ path('app_location_index') }}">back to list</a>

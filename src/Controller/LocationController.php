@@ -34,17 +34,20 @@ class LocationController extends AbstractController
         $form = $this->createForm(LocationType::class, $location);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            // dd($request->files->get('location')["pictures"][0]["file"]->getClientOriginalName());
             $pictures = $location->getPictures();
-            // dump($pictures);
-            // dump($request->files->get('location')["pictures"]);
+
+            // // v1
+            // foreach ($pictures as $key => $pic){
+            //     $pictureFileName = $fileUploader->upload($request->files->get('location')["pictures"][$key]["file"], 'locations');
+            //     $pic->setFile($pictureFileName);
+            // }
+
+            // v2
             foreach ($pictures as $key => $pic){
-                $pictureFileName = $fileUploader->upload($request->files->get('location')["pictures"][$key]["file"], 'locations');
+                $pictureFileName = $fileUploader->upload($pic->getPictureFile(), 'locations');
                 $pic->setFile($pictureFileName);
             }
-            // $pictures[0]->setFile();
-            // dump($location);
-            // dd($pictures);
+
             $location->setUser($this->getUser());
             $location->setCreatedAt(new DateTimeImmutable());
             $location->setModifiedAt(new DateTimeImmutable());
@@ -61,21 +64,18 @@ class LocationController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_location_show', methods: ['GET'])]
-    public function show(Location $location): Response
-    {
-        return $this->render('location/show.html.twig', [
-            'location' => $location,
-        ]);
-    }
-
     #[Route('/{id}/edit', name: 'app_location_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Location $location, LocationRepository $locationRepository): Response
+    public function edit(Request $request, Location $location, LocationRepository $locationRepository, FileUploader $fileUploader): Response
     {
         $form = $this->createForm(LocationType::class, $location);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $pictures = $location->getPictures();
+            foreach ($pictures as $key => $pic){
+                $pictureFileName = $fileUploader->upload($pic->getPictureFile(), 'locations');
+                $pic->setFile($pictureFileName);
+            }
             $locationRepository->save($location, true);
 
             return $this->redirectToRoute('app_location_index', [], Response::HTTP_SEE_OTHER);
@@ -84,6 +84,14 @@ class LocationController extends AbstractController
         return $this->renderForm('location/edit.html.twig', [
             'location' => $location,
             'form' => $form,
+        ]);
+    }
+
+    #[Route('/{id}', name: 'app_location_show', methods: ['GET'])]
+    public function show(Location $location): Response
+    {
+        return $this->render('location/show.html.twig', [
+            'location' => $location,
         ]);
     }
 
